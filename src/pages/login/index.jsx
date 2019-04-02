@@ -4,14 +4,16 @@ import {reqLogin} from '../../api';
 import './index.less';
 import logo from './logo.png';
 
+import {setItem} from '../../untils/index'
+
 const Item = Form.Item;
 
 @Form.create()
 class Login extends Component {
 
+    //登录验证
     prohibit = (ev) => {
         ev.preventDefault();
-
         this.props.form.validateFields(async (err,values) => {
             console.log(err,values);
             if (!err) {
@@ -21,7 +23,9 @@ class Login extends Component {
                 console.log(username,password);
                 const result = await reqLogin(username, password);
                 if (result.status === 0) {
+                    setItem(values);
                     message.success('登录成功!');
+
                     this.props.history.replace('/');
                 } else {
                     message.error(result.msg, 2)
@@ -33,6 +37,7 @@ class Login extends Component {
         })
     };
 
+    //密码验证
     validator = (ruler, value, callBack) => {
         const length = value && value.length;
         const reg = /^[a-zA-Z0-9]+$/;
