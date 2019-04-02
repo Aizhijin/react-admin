@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Form, Icon, Input, Button, message} from 'antd';
 import {reqLogin} from '../../api';
 import './index.less';
-import logo from './logo.png';
+import logo from '../../assets/img/logo.png';
 
 import {setItem} from '../../untils/index'
 
