@@ -6,11 +6,12 @@ import Admin from './pages/admin'
 import './assets/less/reset.less'
 export default class App extends Component{
     render(){
-        return <Switch>
-           <Route path='/login' component={Login}/>
-           <Route path='/admin' component={Admin}/>
-            <Redirect to='/login'/>
+        return  <Switch>
+            <Route path='/login' component={Login}/>
+            <Route path='/' component={Admin}/>
         </Switch>
+
+
     }
 }
 

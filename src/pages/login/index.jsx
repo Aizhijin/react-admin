@@ -1,29 +1,54 @@
 import React, {Component} from 'react';
-import {Form, Icon, Input, Button} from 'antd';
+import {Form, Icon, Input, Button, message} from 'antd';
+import {reqLogin} from '../../api';
 import './index.less';
 import logo from './logo.png';
 
 const Item = Form.Item;
+
 @Form.create()
- class Login extends Component {
+class Login extends Component {
+
     prohibit = (ev) => {
         ev.preventDefault();
+
+        this.props.form.validateFields(async (err,values) => {
+            console.log(err,values);
+            if (!err) {
+                //校验成功
+                console.log(9999999);
+                const {username, password} = values;
+                console.log(username,password);
+                const result = await reqLogin(username, password);
+                if (result.status === 0) {
+                    message.success('登录成功!');
+                    this.props.history.replace('/');
+                } else {
+                    message.error(result.msg, 2)
+                }
+            } else {
+                console.log('校验失败！');
+                console.log(err);
+            }
+        })
     };
 
-    validator=(ruler,value,callBack)=>{
-        const length=value&&value.length;
-        const reg=/^[a-zA-Z0-9_]+$/;
-        if(!value){
+    validator = (ruler, value, callBack) => {
+        const length = value && value.length;
+        const reg = /^[a-zA-Z0-9]+$/;
+        if (!value) {
             callBack('必须输入密码')
         }
-        else if(length<4){
+        else if (length < 4) {
             callBack('密码必须小于4位')
         }
-        else if(length>12){
+        else if (length > 12) {
             callBack('密码不能大于12位')
         }
-        else if(!reg.test(value)){
-            callBack('密码必须为数字、字母、下划线')
+        else if (!reg.test(value)) {
+            callBack('密码必须为数字、字母')
+        } else {
+            callBack();
         }
     };
 
@@ -39,14 +64,14 @@ const Item = Form.Item;
                 <form onSubmit={this.prohibit} className='login-form'>
                     <Item>
                         {
-                            getFieldDecorator('userName',
+                            getFieldDecorator('username',
                                 {
                                     rules: [
-                                        { required: true,message: '必须输入用户名!'},
-                                        {whitespace:true,message:'不能有空格!'},
-                                        { min: 4, message: '必须大于4位!'},
-                                        { max: 12, message: '不能超过12位!'},
-                                        { pattern:/^[a-zA-Z0-9_]+$/, message: '必须为数字、字母、下划线'},
+                                        {required: true, message: '必须输入用户名!'},
+                                        {whitespace: true, message: '不能有空格!'},
+                                        {min: 4, message: '必须大于4位!'},
+                                        {max: 12, message: '不能超过12位!'},
+                                        {pattern: /^[a-zA-Z0-9_]+$/, message: '必须为数字、字母、下划线'},
                                     ]
                                 }
                             )(<Input prefix={<Icon type="user" style={{color: 'rgba(0,0,0,.25)'}}/>}
@@ -57,7 +82,7 @@ const Item = Form.Item;
                         {
                             getFieldDecorator('password', {
                                 rules: [
-                                    {validator:this.validator}
+                                    {validator: this.validator}
                                 ]
                             })(<Input prefix={<Icon type="lock" style={{color: 'rgba(0,0,0,.25)'}}/>} type='password'
                                       placeholder='密码'/>)
@@ -72,4 +97,5 @@ const Item = Form.Item;
         </div>
     }
 }
+
 export default Login
