@@ -9,7 +9,7 @@ module.exports = override(
     }),
     addLessLoader({
         javascriptEnabled: true,
-        modifyVars: { '@primary-color': '#1DA57A' },
+        modifyVars: { '@primary-color': '#7546c9' },
     }),
     addBabelPlugins(
         [

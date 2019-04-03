@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
-import {Link, Route} from "react-router-dom";
+import {Route} from "react-router-dom";
 import {Layout} from 'antd';
+import HeaderMain from '../../components/header-main'
 
 import {getItem} from '../../untils';
 import save from '../../untils/start';
@@ -16,9 +17,9 @@ import Line from '../charts/line';
 import Pie from '../charts/pie';
 
 import './index.less'
-import logo from '../../assets/img/logo.png'
 
-const {Header, Content, Footer, Sider} = Layout;
+
+const { Content, Footer, Sider} = Layout;
 
 export default class Admin extends Component {
     constructor(props) {
@@ -54,8 +55,8 @@ export default class Admin extends Component {
                     <LeftNav opacity={opacity}/>
                 </Sider>
 
-                <Layout>
-                    <Header style={{background: '#fff', padding: 0}}/>
+                <Layout className='main-content'>
+                   <HeaderMain/>
                     <Content style={{margin: '0 16px'}}>
                         <Route path='/home' component={Home}/>
                         <Route path='/category' component={Category}/>

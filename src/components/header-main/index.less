@@ -1,0 +1,41 @@
+.header-main {
+  background: #fff;
+  padding: 0;
+  height: 130px;
+  .header_top {
+    line-height: 23px;
+    text-align: right;
+    padding: 20px;
+    border-bottom:1px solid #1da57a;
+  }
+  .header_bottom {
+    display: flex;
+    align-items: center;
+
+    .header_bottom_left{
+      text-align: center;
+      font-size: 18px;
+      &::after{
+        content: '';
+        border-left: 20px solid transparent ;
+        border-right: 20px solid transparent ;
+        border-bottom: 20px solid transparent ;
+        border-top: 20px solid #fff ;
+        position: absolute;
+        bottom: -40px;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+    }
+
+    .header_bottom_right{
+      text-align: right;
+      padding-right: 20px;
+      img{
+        width: 30px ;
+        height: 20px;
+        margin: 0 10px;
+      }
+    }
+  }
+}

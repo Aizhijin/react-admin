@@ -31,7 +31,6 @@ class LeftNav extends Component {
     }
 
     createMenu(menulist,openKey) {
-        console.log(this.state)
         const {pathname} = this.props.location;
         return menulist.map((item) => {
             const son = item.children;
