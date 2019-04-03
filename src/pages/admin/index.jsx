@@ -51,13 +51,7 @@ export default class Admin extends Component {
                        collapsed={this.state.collapsed}
                        onCollapse={this.onCollapse}
                 >
-                    <Link to='/home'>
-                        <div className="logo">
-                            <img src={logo} alt='logo'/>
-                            <h2 style={{opacity}}>硅谷后台</h2>
-                        </div>
-                    </Link>
-                    <LeftNav/>
+                    <LeftNav opacity={opacity}/>
                 </Sider>
 
                 <Layout>
