@@ -2,7 +2,6 @@ import axios from 'axios';
 import {message} from  'antd';
 
 export default function  ajax(url,data,method='GET') {
-console.log(4444444444);
     method=method.toUpperCase();
     let promise=null;
     if(method==='GET'){
@@ -10,7 +9,7 @@ console.log(4444444444);
             params:data
         });
     } else {
-        console.log(data)
+        console.log(data);
         promise =axios.post(url,data)
     }
     return promise

@@ -24,3 +24,17 @@ export const getWeather=function(city) {
     })
 
 };
+export const reqGetCategorys = (parentId ) =>{
+    return ajax(prefix+'/manage/category/list', {parentId});
+
+};
+//添加分类
+export const reqAddCategorys = (parentId ,categoryName) =>{
+    return ajax(prefix+'/manage/category/add', {parentId,categoryName},'POST');
+
+};
+//修改分类
+export const reqUpdateCategorys = (categoryId ,categoryName) =>{
+    return ajax(prefix+'/manage/category/update', {categoryId,categoryName},'POST');
+
+};
