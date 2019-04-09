@@ -31,10 +31,11 @@ export const reqGetCategorys = (parentId ) =>{
 //添加分类
 export const reqAddCategorys = (parentId ,categoryName) =>{
     return ajax(prefix+'/manage/category/add', {parentId,categoryName},'POST');
-
 };
 //修改分类
 export const reqUpdateCategorys = (categoryId ,categoryName) =>{
     return ajax(prefix+'/manage/category/update', {categoryId,categoryName},'POST');
-
+};
+export const reqGetProduct = (pageNum ,pageSize) =>{
+    return ajax(prefix+'/manage/product/list', {pageNum,pageSize});
 };

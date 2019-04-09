@@ -11,17 +11,17 @@ export default class Category extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            categories: [],//一级分类数据
+            categories: [],//一级分类数据存储
             isShowAddModal: false,
             isShowUpdateModal: false,
             category: {},//要操作的分类数据
             isShowSubCategory: false,//是否显示二级分类
-            subCategories: [],//二级分类数据
-            parentCategory: {}//操作的二级分类
+            subCategories: [],//二级分类数据存储
+            parentCategory: {},//操作的二级分类
+            isLoading: true, // 决定是否有loading
         };
-        this.addCategoryRef = React.createRef();
-        this.createUpdateForm = React.createRef();
-
+        this.addCategoryRef = React.createRef();//标记添加对话框
+        this.createUpdateForm = React.createRef();//标记修改对话框
     }
 
     columns = [//定义成属性 减少重复定义
@@ -65,7 +65,9 @@ export default class Category extends Component {
 
     //发送请求信息
     getCategories = async (parentId) => {
+        this.setState({isLoading: true});
         const result = await reqGetCategorys(parentId);
+        this.setState({ isLoading: false,});
         if (result.status === 0) {
             if (parentId === '0') {//判断是一级还是二级
                 this.setState({
@@ -81,14 +83,16 @@ export default class Category extends Component {
         }
     };
 
+    //改变对话框状态
     changeModal = (name, bol) => {
         return () => {
             this.setState({
                 [name]: bol
             })
         }
-    };
+    } ;
 
+    //添加分类
     addCategory = () => {
         const {validateFields, resetFields} = this.addCategoryRef.current.props.form;
         validateFields(async (err, values) => {
@@ -98,17 +102,15 @@ export default class Category extends Component {
                 const resualt = await reqAddCategorys(parentId, categoryName);
                 if (resualt.status === 0) {
                     message.success('添加分类成功~~');
-                    if (parentId === 0) {
-                        this.setState({
-                            isShowAddModal: false,
-                            categories: [...this.state.categories, resualt.data]
-                        });
+                    const start = {isShowAddModal: false}, {categories, subCategories} = this.state;
+                    if (parentId === '0') {
+                        start.categories = [...categories, resualt.data];
+                        //验证是否是在二级分类下添加
                     } else if (parentId === this.state.parentCategory._id) {//在二级分类页面添加需要显示
-                        this.setState({
-                            isShowAddModal: false,
-                            subCategories: [...this.state.subCategories, resualt.data]
-                        });
+                        start.subCategories = [...subCategories, resualt.data];
                     }
+                    //多次setState合并为一次，提高性能、简化
+                    this.setState(start);
                     //清除表单数据
                     resetFields();
                 }
@@ -170,7 +172,7 @@ export default class Category extends Component {
     }
 
     render() {
-        const {categories, subCategories, isShowAddModal, isShowSubCategory, isShowUpdateModal, parentCategory, category: {name}} = this.state;
+        const {categories, subCategories,isLoading,isShowAddModal, isShowSubCategory, isShowUpdateModal, parentCategory, category: {name}} = this.state;
         return (
             <Card
                 className="category main"
@@ -191,6 +193,7 @@ export default class Category extends Component {
                         showQuickJumper: true,
                     }}
                     rowKey="_id"
+                    loading={isLoading}
                 />
                 <Modal
                     title="添加分类"
@@ -213,7 +216,6 @@ export default class Category extends Component {
                 >
                     <UpdateCategory categoryName={name} wrappedComponentRef={this.createUpdateForm}/>
                 </Modal>
-
             </Card>
         )
     }
