@@ -12,7 +12,6 @@ export default class Detail extends Component {
     goBack = () => {
         this.props.history.goBack();
     };
-
     componentDidMount() {
         const {categoryId, pCategoryId} = this.props.location.state;
         this.getCateoryName(categoryId, pCategoryId)
