@@ -36,6 +36,30 @@ export const reqAddCategorys = (parentId ,categoryName) =>{
 export const reqUpdateCategorys = (categoryId ,categoryName) =>{
     return ajax(prefix+'/manage/category/update', {categoryId,categoryName},'POST');
 };
+//获取产品列表
 export const reqGetProduct = (pageNum ,pageSize) =>{
     return ajax(prefix+'/manage/product/list', {pageNum,pageSize});
+};
+//添加产品
+export const reqAddProduct = (obj) =>{
+    return ajax(prefix+'/manage/product/add',obj,'POST');
+};
+//更新产品
+export const reqUpdateProduct = (obj) =>{
+    return ajax(prefix+'/manage/product/update',obj,'POST');
+};
+//删除图片
+export const reqDelImage = (name,id) =>{
+    return ajax(prefix+'/manage/img/delete',{name,id},'POST');
+};
+//搜索产品
+export const reqSearchProduct = (data) =>{
+    return ajax(prefix+'/manage/product/search',data);
+};
+//获取分类名
+export const reqGetCateoryName = (categoryId) =>{
+    return ajax(prefix+'/manage/category/info',{categoryId});
+};
+export const reqUpdateStatus = ( obj) =>{
+    return ajax(prefix+'/manage/product/updateStatus',obj,'POST');
 };

@@ -46,7 +46,7 @@ class HeaderMain extends Component {
             const children = menuList[i].children;
             if (children) {
                 for (let j = 0; j < children.length; j++) {
-                    if (children[j].key === pathname) {
+                    if (pathname.startsWith(children[j].key)) {
                         return children[j].title;
                     }
                 }

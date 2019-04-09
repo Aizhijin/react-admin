@@ -40,7 +40,7 @@ class LeftNav extends Component {
                     title={<span><Icon type={item.icon}/><span>{item.title}</span></span>}>
                     {
                         son.map((singel) => {
-                        if (singel.key === pathname) {
+                        if (pathname.startsWith(singel.key)) {
                             //无法对未装入的组件使用 setState ，所以使用引用
                                 openKey.push(item.key)
                         }
@@ -61,7 +61,10 @@ class LeftNav extends Component {
         })
     };
     render() {
-        const {location:{pathname},opacity} = this.props;
+        let {location:{pathname},opacity} = this.props;
+        if (pathname.startsWith('/product')) {
+            pathname='/product';
+        }
         return (
             <Fragment>
                 <Link to='/home'>
