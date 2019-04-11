@@ -14,18 +14,14 @@ class Login extends Component {
     //登录验证
     prohibit = (ev) => {
         ev.preventDefault();
-        this.props.form.validateFields(async (err,values) => {
-            console.log(err,values);
+        this.props.form.validateFields(async (err, values) => {
             if (!err) {
                 //校验成功
-                console.log(9999999);
                 const {username, password} = values;
-                console.log(username,password);
                 const result = await reqLogin(username, password);
                 if (result.status === 0) {
-                    setItem(values);
+                    setItem(result.data);
                     message.success('登录成功!');
-
                     this.props.history.replace('/');
                 } else {
                     message.error(result.msg, 2)

@@ -2,12 +2,11 @@ import ajax from './ajax';
 import jsonp from 'jsonp';
 
 const prefix =process.env.NODE_ENV==='development'? 'http://localhost:3000' : 'http://localhost:5000';
-
+//登录请求
 export const  reqLogin=(username,password)=>{
-    console.log(username,password);
     return ajax(prefix+'/login',{username,password},'POST')
 };
-
+//获取天气
 export const getWeather=function(city) {
     return new Promise((resolve,reject)=>{
         jsonp(`http://api.map.baidu.com/telematics/v3/weather?location=${city}&output=json&ak=3p49MVra6urFRGOT9s8UBWr2`,
@@ -24,6 +23,7 @@ export const getWeather=function(city) {
     })
 
 };
+//获取所有品类
 export const reqGetCategorys = (parentId ) =>{
     return ajax(prefix+'/manage/category/list', {parentId});
 
@@ -60,6 +60,35 @@ export const reqSearchProduct = (data) =>{
 export const reqGetCateoryName = (categoryId) =>{
     return ajax(prefix+'/manage/category/info',{categoryId});
 };
+//更新商品状态
 export const reqUpdateStatus = ( obj) =>{
     return ajax(prefix+'/manage/product/updateStatus',obj,'POST');
+};
+//添加用户
+export const reqAddUser = ( obj) =>{
+    return ajax(prefix+'/manage/user/add',obj,'POST');
+};
+//添加角色
+export const reqAddRole = ( obj) =>{
+    return ajax(prefix+'/manage/role/add',obj,'POST');
+};
+//获取所有角色
+export const reqGetRoles = () =>{
+    return ajax(prefix+'/manage/role/list');
+};
+//更新角色
+export const reqUpdateRoles = (obj) =>{
+    return ajax(prefix+'/manage/role/update',obj,'POST');
+};
+//获取所有用户
+export const reqGetUsers = (obj) =>{
+    return ajax(prefix+'/manage/user/list');
+};
+//更新用户
+export const reqUpdateUser = (user) =>{
+    return ajax(prefix+'/manage/user/update',user,'POST');
+};
+//删除用户
+export const reqDeleteUser = (userId) =>{
+    return ajax(prefix+'/manage/user/delete',{userId},'POST');
 };

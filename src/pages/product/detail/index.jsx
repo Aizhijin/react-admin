@@ -44,6 +44,7 @@ export default class Detail extends Component {
                 break;
             case 3:
                 headTxt = '价格';
+                item=item+'￥';
                 break;
             case 4:
                 headTxt = '图片';

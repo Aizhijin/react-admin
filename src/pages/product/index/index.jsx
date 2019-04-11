@@ -88,14 +88,12 @@ export default class Commodity extends Component {
         const {searchType} = this.state;
         let result = null;
         this.setState({isLoading: true});
-        console.log(this.searchContent);
         if (this.searchContent) {
             result = await reqSearchProduct({
                 [searchType]: this.searchContent,
                 pageNum,
                 pageSize
             });
-            console.log(result)
         } else {
             result = await reqGetProduct(pageNum, pageSize);
         }

@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 import {Card, Button, Table, message, Icon, Modal} from 'antd';
 
 import MyButton from '../../components/my-button';
@@ -7,7 +7,7 @@ import UpdateCategory from './update-category'
 import {reqGetCategorys, reqAddCategorys, reqUpdateCategorys} from '../../api'
 import './index.less'
 
-export default class Category extends Component {
+export default class Category extends PureComponent {
     constructor(props) {
         super(props);
         this.state = {
@@ -172,6 +172,7 @@ export default class Category extends Component {
     }
 
     render() {
+        console.log(222222222222);
         const {categories, subCategories,isLoading,isShowAddModal, isShowSubCategory, isShowUpdateModal, parentCategory, category: {name}} = this.state;
         return (
             <Card

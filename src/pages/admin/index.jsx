@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Route} from "react-router-dom";
+import {Route, Switch, Redirect} from "react-router-dom";
 import {Layout} from 'antd';
 import HeaderMain from '../../components/header-main'
 
@@ -12,15 +12,9 @@ import Category from '../category';
 import Product from '../product';
 import User from '../user';
 import Role from '../role';
-import Bar from '../charts/bar';
-import Line from '../charts/line';
-import Pie from '../charts/pie';
-
+import Charts from '../charts';
 import './index.less'
-
-
-const { Content, Footer, Sider} = Layout;
-
+const {Content, Footer, Sider} = Layout;
 export default class Admin extends Component {
     constructor(props) {
         super(props);
@@ -39,7 +33,6 @@ export default class Admin extends Component {
     };
 
     onCollapse = (collapsed) => {
-        console.log(collapsed);
         this.setState({collapsed});
     };
 
@@ -56,16 +49,17 @@ export default class Admin extends Component {
                 </Sider>
 
                 <Layout className='main-content'>
-                   <HeaderMain/>
+                    <HeaderMain/>
                     <Content style={{margin: '0 16px'}}>
-                        <Route path='/home' component={Home}/>
-                        <Route path='/category' component={Category}/>
-                        <Route path='/product' component={Product}/>
-                        <Route path='/user' component={User}/>
-                        <Route path='/role' component={Role}/>
-                        <Route path='/charts/pie' component={Pie}/>
-                        <Route path='/charts/line' component={Line}/>
-                        <Route path='/charts/bar' component={Bar}/>
+                        <Switch>
+                            <Route path='/home' component={Home}/>
+                            <Route path='/category' component={Category}/>
+                            <Route path='/product' component={Product}/>
+                            <Route path='/user' component={User}/>
+                            <Route path='/role' component={Role}/>
+                            <Route path='/charts' component={Charts}/>
+                            <Redirect to='/home'/>
+                        </Switch>
                     </Content>
                     <Footer style={{textAlign: 'center'}}>
                         推荐使用谷歌浏览器，可以获得更佳页面操作体验
